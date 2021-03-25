@@ -35,7 +35,10 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "express-handlebars": "^5.2.1"
+    "express-handlebars": "^5.2.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.12.2",
+    "mongoose-slug-generator": "^1.0.4"
   },
   "devDependencies": {
     "husky": "^4.3.8",

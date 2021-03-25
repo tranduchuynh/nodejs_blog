@@ -1,11 +1,12 @@
 const { multipleMongooseToObject } = require('../../util/mongoose');
 const Course = require('../models/Course');
-class SiteController {
-    // [GET] new
-    index(req, res, next) {
+
+class MeController {
+    // [GET] /me/stored/courses
+    storedCourses(req, res, next) {
         Course.find({})
             .then((courses) =>
-                res.render('home', {
+                res.render('me/storedCourses', {
                     courses: multipleMongooseToObject(courses),
                 }),
             )
@@ -13,4 +14,4 @@ class SiteController {
     }
 }
 
-module.exports = new SiteController();
+module.exports = new MeController();
