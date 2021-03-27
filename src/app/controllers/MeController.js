@@ -4,12 +4,16 @@ const Course = require('../models/Course');
 class MeController {
     // [GET] /me/stored/courses
     storedCourses(req, res, next) {
-        Course.find({})
-            .then((courses) =>
+        Promise.all([
+            Course.find({}).sortable(req),
+            Course.countDocumentsDeleted(),
+        ])
+            .then(([courses, deletedCount]) => {
                 res.render('me/storedCourses', {
+                    deletedCount,
                     courses: multipleMongooseToObject(courses),
-                }),
-            )
+                });
+            })
             .catch(next);
     }
 

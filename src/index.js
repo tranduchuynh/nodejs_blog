@@ -5,6 +5,7 @@ const path = require('path');
 const route = require('./routes');
 const db = require('./config/db');
 const methodOverride = require('method-override');
+const sortMiddleware = require('./app/middlewares/sortMiddleware');
 
 // Connect to DB
 db.connect();
@@ -26,17 +27,16 @@ app.use(express.json());
 // HTTP logger
 app.use(morgan('combined'));
 
+// Custom middleware
+app.use(sortMiddleware);
+
 // Template engine
 
 app.engine(
     'hbs',
     handlebars({
         extname: '.hbs',
-        helpers: {
-            sum: function (a, b) {
-                return a + b;
-            },
-        },
+        helpers: require('./helpers/handlebars'),
     }),
 );
 app.set('view engine', 'hbs');
